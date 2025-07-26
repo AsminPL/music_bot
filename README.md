@@ -1,179 +1,153 @@
+# 🎶 Discord Music Bot (BETA)
 
-# 🎶 Discord Music Bot (Wersja BETA) 🎧
+Witaj w repozytorium Twojego niestandardowego bota muzycznego na Discorda!  
+Ten bot umożliwia odtwarzanie muzyki z YouTube i Spotify bezpośrednio na Twoim serwerze Discord.
 
-Witaj w moim repozytorium bota muzycznego na Discorda!  
-Ten bot pozwala na odtwarzanie muzyki z YouTube i Spotify bezpośrednio na Twoim serwerze Discord.
+---
+
+## ⚠️ Ważna informacja
+
+> **Przed uruchomieniem bota**:  
+> W pliku `bot.py` ustaw `DEBUG_GUILD_IDS = [TWOJE_ID_SERWERA]`, aby komendy ukośnika (`/`) działały poprawnie.
+> Bez tego mogą się nie pojawiać.
 
 ---
 
 ## ✨ Funkcje
 
-- `!play <link lub tytuł>` — Odtwarza muzykę z YouTube lub Spotify (tylko pojedyncze utwory). Możesz podać link URL lub tytuł utworu do wyszukania.
-- `!pause` — Wstrzymuje aktualnie odtwarzany utwór.
-- `!resume` — Wznawia wstrzymany utwór.
-- `!volume <wartość>` — Ustawia głośność odtwarzania (wartość od 0 do 100).
-- `!leave` — Bot opuszcza kanał głosowy i czyści kolejkę odtwarzania.
-- `!pomoc` — Wyświetla listę dostępnych komend oraz ważne informacje.
+- `/play <link lub tytuł>` — odtwarza muzykę z YouTube lub Spotify (pojedyncze utwory)
+- `/pause` — pauzuje aktualnie odtwarzany utwór
+- `/resume` — wznawia odtwarzanie
+- `/volume <0-100>` — ustawia głośność
+- `/stop` — zatrzymuje muzykę i czyści kolejkę
+- `/skip` — pomija utwór
+- `/leave` — bot wychodzi z kanału głosowego
+- `/pomoc` — pokazuje dostępne komendy i instrukcje
 
 ---
 
-## ⚠️ UWAGA! Wersja BETA (1.0-beta)
+## 🧪 Wersja STABLE
 
-Ten bot jest w fazie **BETA**. Mogą występować bugi oraz błędy.  
-Prosimy o zgłaszanie wszelkich problemów!
+Bot jest w STABLE  — lecz mogą występować błędy których nie odkryłem sam podczas testowania (z względu ze koduje solo)
+**Zgłaszaj je w issues!**
 
-- Podczas korzystania z komendy `!play`, wklej link do Spotify/YouTube.  
-- Musisz być na **kanale głosowym**, aby bot zadziałał!
-- **Zalecamy korzystanie z linków YouTube**, ponieważ integracja ze Spotify może być niestabilna (konwersja na YouTube).
+> ⚠️ Integracja ze Spotify może być niedoskonała (konwersja na YouTube). Zalecane jest używanie linków YouTube.
 
 ---
 
 ## 🚀 Wymagania
 
-Aby uruchomić bota, potrzebujesz:
-
-- Python 3.8+ (zalecane)
-- `pip` (menedżer pakietów Pythona)
-- `FFmpeg` (program do przetwarzania audio/wideo)
-- Token bota Discord
-- Klucze API Spotify (Client ID i Client Secret)
+| Komponent          | Wersja            |
+|--------------------|-------------------|
+| Python             | 3.8 lub wyższy    |
+| FFmpeg             | Zainstalowany     |
+| pip                | Aktualny          |
+| Discord Bot Token  | Własny            |
+| Spotify API Keys   | Client ID/Secret  |
 
 ---
 
-## 🛠️ Instalacja i Konfiguracja
+## 🔧 Instalacja (Linux)
 
-Poniżej znajdziesz kroki do uruchomienia bota na systemie Linux (np. Ubuntu/Debian):
-
-### 1. Aktualizacja systemu i instalacja Pythona
+### 1. Instalacja zależności systemowych
 
 ```bash
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y python3 python3-pip
+sudo apt install -y python3 python3-pip ffmpeg
 ```
 
-### 2. Instalacja FFmpeg
+### 2. Instalacja bibliotek Pythona
 
 ```bash
-sudo apt install -y ffmpeg
+pip3 install py-cord yt-dlp spotipy
 ```
 
-### 3. Instalacja bibliotek Pythona
-
-```bash
-pip3 install discord.py yt-dlp spotipy
-```
-
-### 4. Przygotowanie pliku bota
-
-#### a. Utwórz katalog:
+### 3. Utwórz plik `bot.py`
 
 ```bash
 mkdir ~/discord_music_bot
 cd ~/discord_music_bot
-```
-
-#### b. Utwórz plik `bot.py`:
-
-```bash
 nano bot.py
 ```
 
-#### c. Wklej kod bota i skonfiguruj tokeny:
-
-Zamień dane na swoje:
+Wklej kod bota i podmień dane:
 
 ```python
 DISCORD_BOT_TOKEN = 'TWOJ_TOKEN_BOTA_DISCORD'
 SPOTIFY_CLIENT_ID = 'TWOJ_SPOTIFY_CLIENT_ID'
 SPOTIFY_CLIENT_SECRET = 'TWOJ_SPOTIFY_CLIENT_SECRET'
+DEBUG_GUILD_IDS = [TWOJE_ID_SERWERA]
 ```
 
-Zapisz plik (`Ctrl+O`, Enter) i wyjdź (`Ctrl+X`).
+Zapisz i zamknij (`Ctrl+O`, `Enter`, `Ctrl+X`).
 
 ---
 
-### 5. Uzyskanie Tokenu Bota Discord
+## 🔑 Tokeny i klucze
 
-1. Przejdź do [https://discord.com/developers/applications](https://discord.com/developers/applications)
-2. Zaloguj się i utwórz nową aplikację.
-3. Przejdź do zakładki **Bot** → kliknij **Add Bot**.
-4. Skopiuj token bota.
-5. Włącz opcje:
-   - `PRESENCE INTENT`
-   - `MESSAGE CONTENT INTENT`
+### 🔹 Discord Bot Token
 
----
+1. Wejdź na [Discord Developer Portal](https://discord.com/developers/applications)
+2. Utwórz aplikację → zakładka **Bot** → kliknij „Add Bot”
+3. Skopiuj token i zaznacz:
+   - ✅ `PRESENCE INTENT`
+   - ✅ `MESSAGE CONTENT INTENT`
 
-### 6. Uzyskanie Kluczy API Spotify
+### 🔹 Spotify API
 
-1. Przejdź do [https://developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
-2. Utwórz nową aplikację.
-3. Skopiuj `Client ID` oraz `Client Secret`.
-4. W **Edit Settings** → dodaj `http://localhost:8888/callback` jako Redirect URI.
+1. Wejdź na [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/)
+2. Utwórz aplikację
+3. Skopiuj `Client ID` i `Client Secret`
+4. W **Edit Settings** dodaj `http://localhost:8888/callback` do Redirect URIs
 
 ---
 
-### 7. Zaproszenie bota na serwer Discord
+## 🤖 Zaproszenie bota na serwer
 
-1. W Discord Developer Portal → **OAuth2** → **URL Generator**
+1. W Discord Developer Portal → **OAuth2 → URL Generator**
 2. Zaznacz:
-   - **SCOPES**: `bot`
-   - **BOT PERMISSIONS**:
-     - `Read Messages/View Channels`
-     - `Send Messages`
-     - `Connect`
-     - `Speak`
-     - `Use Voice Activity`
-3. Skopiuj wygenerowany link i wklej go do przeglądarki, aby zaprosić bota.
+   - **Scopes**: `bot`, `applications.commands`
+   - **Permissions**: `Send Messages`, `Connect`, `Speak`, `Use Voice Activity`
+3. Wygeneruj link i otwórz go w przeglądarce
 
 ---
 
-## ▶️ Uruchamianie Bota
-
-Po przygotowaniu środowiska uruchom bota:
+## ▶️ Uruchamianie bota
 
 ```bash
 cd ~/discord_music_bot
 python3 bot.py
 ```
 
-Aby bot działał w tle:
+Aby działał w tle:
 
 ```bash
-sudo apt install -y screen
-screen
-cd ~/discord_music_bot
+sudo apt install screen
+screen -S muzyka
 python3 bot.py
-# Następnie Ctrl+A, potem D, aby odłączyć sesję screena
+# potem: Ctrl+A, D — odłączenie sesji
 ```
 
 ---
 
-## ❓ Rozwiązywanie problemów
+## 🧯 Rozwiązywanie problemów
 
-- `SyntaxError: Non-UTF-8 code...`  
-  → Dodaj `# -*- coding: utf-8 -*-` na początku pliku `bot.py` i upewnij się, że plik zapisany jest w UTF-8.
-
-- `Invalid data found when processing input`  
-  → Zaktualizuj yt-dlp:
-
-  ```bash
-  pip3 install --upgrade yt-dlp
-  ```
-
-- Bot nie odtwarza / nie łączy się z kanałem głosowym  
-  → Sprawdź:
-  - Uprawnienia bota (`Connect`, `Speak`)
-  - Instalację FFmpeg (`ffmpeg` musi działać w terminalu)
+| Problem | Rozwiązanie |
+|--------|-------------|
+| `ModuleNotFoundError: No module named 'discord.commands'` | Upewnij się, że zainstalowano `py-cord` |
+| `SyntaxError: (unicode error)` | Plik zapisany w UTF-8 z nagłówkiem `# -*- coding: utf-8 -*-` |
+| `Invalid data found when processing input` | Uaktualnij `yt-dlp`: `pip3 install --upgrade yt-dlp` |
+| Bot nie odtwarza / nie dołącza | Sprawdź czy FFmpeg działa (`ffmpeg -version`) i bot ma uprawnienia |
+| Slash komendy się nie pojawiają | Upewnij się, że `DEBUG_GUILD_IDS` zawiera poprawne ID serwera lub wywal `debug_guilds` do rejestracji globalnej |
 
 ---
 
-## 🤝 Wsparcie i Kontakt
+## 🤝 Wsparcie
 
-Masz pytania lub potrzebujesz pomocy?  
-Skontaktuj się ze mną — chętnie pomogę! 🎧
-
----
-
-> Projekt w wersji **BETA** — rozwijany i testowany na bieżąco.
+Masz pytania, bugi, albo chcesz coś dodać do kodu?  
+Zgłoś **issues**
+lub:
+E-Mail: asmin@asmin.pl lub developer@asmin.pl
+Tel: +48 732 797 370
+Discord: asminpl
