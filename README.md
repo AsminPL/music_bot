@@ -1,7 +1,6 @@
-# 🎶 Discord Music Bot (BETA)
+# 🎶 Discord Music Bot (STABLE)
 
-Witaj w repozytorium Twojego niestandardowego bota muzycznego na Discorda!  
-Ten bot umożliwia odtwarzanie muzyki z YouTube i Spotify bezpośrednio na Twoim serwerze Discord.
+Witaj! Ten bot umożliwia odtwarzanie muzyki z YouTube i Spotify bezpośrednio na Twoim serwerze Discord.
 
 ---
 
